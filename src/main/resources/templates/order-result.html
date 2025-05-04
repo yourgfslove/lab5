@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Result</title>
+</head>
+<body>
+    <h1>Search Result</h1>
+    <div th:if="${order}">
+        <div class="order-details">
+            <h3>Order Details</h3>
+            <p><strong>Code:</strong> <span th:text="${order.code}"></span></p>
+            <p><strong>Name:</strong> <span th:text="${order.name}"></span></p>
+            <p><strong>Description:</strong> <span th:text="${order.description}"></span></p>
+            <form th:action="@{/orders/delete/{code}(code=${order.code})}" method="post">
+                <button type="submit">Delete Order</button>
+            </form>
+        </div>
+    </div>
+    <div th:unless="${order}">
+        <p>Order not found</p>
+    </div>
+    <a th:href="@{/orders/search}">New search</a>
+    <a th:href="@{/orders}">Back to list</a>
+</body>
+</html>

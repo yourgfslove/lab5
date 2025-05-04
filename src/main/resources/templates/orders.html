@@ -1,0 +1,55 @@
+<!-- src/main/resources/templates/orders.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление Заказами</title>
+</head>
+<body>
+<h1>Управление заказами</h1>
+<h2>Создать новый заказ</h2>
+<form method="post" action="/orders/random">
+    <h3>Случайный код</h3>
+    <input type="text" name="name" placeholder="Имя заказа" required>
+    <input type="text" name="description" placeholder="Описание" required>
+    <button type="submit">Создать</button>
+</form>
+
+<form method="post" action="/orders/with-date">
+    <h3>Код с датой</h3>
+    <input type="text" name="name" placeholder="Имя заказа" required>
+    <input type="text" name="description" placeholder="Описание" required>
+    <button type="submit">Создать</button>
+</form>
+
+<form method="post" action="/orders/with-affixes">
+    <h3>Код с префиксом/суффиксом</h3>
+    <input type="text" name="name" placeholder="Имя заказа" required>
+    <input type="text" name="description" placeholder="Описание" required>
+    <input type="text" name="prefix" placeholder="Префикс" required>
+    <input type="text" name="suffix" placeholder="Суфикс" required>
+    <button type="submit">Создать</button>
+</form>
+
+<h2>Список заказов</h2>
+<a th:href="@{/orders/search}" class="btn">Поиск по заказам</a>
+<table>
+    <tr>
+        <th>Код</th>
+        <th>Имя заказа</th>
+        <th>Описание</th>
+        <th>Действие</th>
+    </tr>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.code}"></td>
+        <td th:text="${order.name}"></td>
+        <td th:text="${order.description}"></td>
+        <td>
+            <form method="post" th:action="@{/orders/delete/{code}(code=${order.code})}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
